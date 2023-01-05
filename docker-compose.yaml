@@ -1,0 +1,11 @@
+---
+version: "3"
+services:
+  flask-docker:
+    build: .
+    container_name: flask-docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 5005:5000
+    restart: unless-stopped
