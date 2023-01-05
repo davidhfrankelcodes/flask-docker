@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from docker import DockerClient
 from docker.errors import ImageNotFound
 
@@ -6,16 +6,13 @@ from docker.errors import ImageNotFound
 app = Flask(__name__)
 client = DockerClient(base_url='unix://var/run/docker.sock')
 
-@app.route('/v1/images/')
-def images():
-    images = client.images.list()
-    return jsonify([{
-        'id': image.id,
-        'tags': image.tags,
-        'created_at': image.attrs['Created'],
-        'size': image.attrs['Size'],
-        'virtual_size': image.attrs['VirtualSize']
-    } for image in images])
+@app.route('/')
+def index():
+    containers = client.containers.list()
+    return render_template(
+        'index.html', title='flask-docker', 
+        containers=containers)
+
 
 @app.route('/v1/containers/', methods=['GET', 'POST'])
 def containers():
@@ -50,6 +47,16 @@ def containers():
             'labels': container.attrs['Config']['Labels']
         } for container in containers])
 
+@app.route('/v1/images/')
+def images():
+    images = client.images.list()
+    return jsonify([{
+        'id': image.id,
+        'tags': image.tags,
+        'created_at': image.attrs['Created'],
+        'size': image.attrs['Size'],
+        'virtual_size': image.attrs['VirtualSize']
+    } for image in images])
 
 @app.route('/v1/networks/')
 def networks():

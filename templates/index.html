@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/v1/containers/">Containers</a> |
+      <a href="/v1/images/">Images</a> |
+      <a href="/v1/networks/">Networks</a> |
+      <a href="/v1/volumes/">Volumes</a>
+    </nav>
+    <h1>Welcome to the App!</h1>
+    <h2>Containers</h2>
+    <ul>
+      {% for container in containers %}
+      <li>{{ container.name }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
