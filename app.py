@@ -16,7 +16,9 @@ def index():
 @app.route('/containers/')
 def containers_app():
     containers = client.containers.list()
-    print([container.id for container in containers])
+    print('''CONTAINER ATTRIBUTES''')
+    print(containers[0].attrs)
+    containers = sorted(containers, key=lambda c: c.name.lower())
     return render_template(
         'containers.html', title='containers', 
         containers=containers)
@@ -29,6 +31,16 @@ def container_app(container_id):
 @app.route('/images/')
 def images_app():
     images = client.images.list()
+    print('''IMAGE ATTRIBUTES''')
+    print(images[0].attrs)
+
+    def get_image_sort_key(image):
+        if image.attrs['RepoTags']:
+            return image.attrs['RepoTags'][0].lower()
+        else:
+            return ''
+
+    images = sorted(images, key=get_image_sort_key)
     return render_template(
         'images.html', title='images', 
         images=images)
@@ -41,6 +53,10 @@ def image_app(image_id):
 @app.route('/networks/')
 def networks_app():
     networks = client.networks.list()
+    def get_network_sort_key(network):
+        return network.name.lower()
+
+    networks = sorted(networks, key=get_network_sort_key)
     return render_template(
         'networks.html', title='networks', 
         networks=networks)
@@ -53,6 +69,10 @@ def network_app(network_id):
 @app.route('/volumes/')
 def volumes_app():
     volumes = client.volumes.list()
+    def get_volume_sort_key(volume):
+        return volume.name.lower()
+
+    volumes = sorted(volumes, key=get_volume_sort_key)
     return render_template(
         'volumes.html', title='volumes', 
         volumes=volumes)
