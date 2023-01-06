@@ -16,9 +16,15 @@ def index():
 @app.route('/containers/')
 def containers_app():
     containers = client.containers.list()
+    print([container.id for container in containers])
     return render_template(
         'containers.html', title='containers', 
         containers=containers)
+
+@app.route('/containers/<container_id>/')
+def container_app(container_id):
+    container = client.containers.get(container_id)
+    return render_template('container.html', container=container)
 
 @app.route('/images/')
 def images_app():
@@ -27,6 +33,11 @@ def images_app():
         'images.html', title='images', 
         images=images)
 
+@app.route('/images/<image_id>/')
+def image_app(image_id):
+    image = client.images.get(image_id)
+    return render_template('image.html', image=image)
+
 @app.route('/networks/')
 def networks_app():
     networks = client.networks.list()
@@ -34,12 +45,23 @@ def networks_app():
         'networks.html', title='networks', 
         networks=networks)
 
+@app.route('/networks/<network_id>/')
+def network_app(network_id):
+    network = client.networks.get(network_id)
+    return render_template('network.html', network=network)
+
 @app.route('/volumes/')
 def volumes_app():
     volumes = client.volumes.list()
     return render_template(
         'volumes.html', title='volumes', 
         volumes=volumes)
+
+@app.route('/volumes/<volume_id>/')
+def volume_app(volume_id):
+    volume = client.volumes.get(volume_id)
+    return render_template('volume.html', volume=volume)
+
 
 @app.route('/v1/containers/', methods=['GET', 'POST'])
 def containers():

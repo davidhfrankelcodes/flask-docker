@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Volume Details{% endblock %}
+{% block content %}
+<h1>Volume Details</h1>
+<p>ID: {{ volume.id }}</p>
+<p>Name: {{ volume.name }}</p>
+<p>Driver: {{ volume.driver }}</p>
+<p>Mountpoint: {{ volume.mountpoint }}</p>
+{% endblock %}

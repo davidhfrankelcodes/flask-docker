@@ -4,7 +4,8 @@
 <h1>Containers!</h1>
 <ul>
   {% for container in containers %}
-  <li>{{ container.name }}</li>
+  <li><a href="{{ url_for('container_app', container_id=container.id) }}">{{ container.name }}</a>
+  </li>
   {% endfor %}
 </ul>
 {% endblock %}

@@ -4,7 +4,7 @@
 <h1>Images!</h1>
 <ul>
     {% for image in images %}
-    <li>{{ image.tags[0]|default('none') }}</li>
+    <li><a href="{{ url_for('image_app', image_id=image.id) }}">{{ image.tags[0]|default('none') }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}

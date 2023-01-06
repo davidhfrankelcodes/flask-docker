@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Network Details{% endblock %}
+{% block content %}
+<h1>Network Details</h1>
+<p>ID: {{ network.id }}</p>
+<p>Name: {{ network.name }}</p>
+<p>Driver: {{ network.driver }}</p>
+<p>Scope: {{ network.scope }}</p>
+{% endblock %}
