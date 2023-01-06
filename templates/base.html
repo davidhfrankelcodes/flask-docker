@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    <title>flask-docker | {% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/containers/">Containers</a> |
+      <a href="/images/">Images</a> |
+      <a href="/networks/">Networks</a> |
+      <a href="/volumes/">Volumes</a>
+    </nav>
+    {% block content %}{% endblock %}
+  </body>
+</html>

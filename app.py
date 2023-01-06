@@ -10,9 +10,36 @@ client = DockerClient(base_url='unix://var/run/docker.sock')
 def index():
     containers = client.containers.list()
     return render_template(
-        'index.html', title='flask-docker', 
+        'index.html', title='Home', 
         containers=containers)
 
+@app.route('/containers/')
+def containers_app():
+    containers = client.containers.list()
+    return render_template(
+        'containers.html', title='containers', 
+        containers=containers)
+
+@app.route('/images/')
+def images_app():
+    images = client.images.list()
+    return render_template(
+        'images.html', title='images', 
+        images=images)
+
+@app.route('/networks/')
+def networks_app():
+    networks = client.networks.list()
+    return render_template(
+        'networks.html', title='networks', 
+        networks=networks)
+
+@app.route('/volumes/')
+def volumes_app():
+    volumes = client.volumes.list()
+    return render_template(
+        'volumes.html', title='volumes', 
+        volumes=volumes)
 
 @app.route('/v1/containers/', methods=['GET', 'POST'])
 def containers():
