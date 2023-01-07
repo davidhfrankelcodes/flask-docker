@@ -15,6 +15,10 @@ def container_details(container_id):
     container = client.containers.get(container_id)
     return render_template('container.html', container=container)
 
+def container_data(container_id):
+    container = client.containers.get(container_id)
+    return jsonify(container.attrs)
+
 
 def container_list_data():
     if request.method == 'POST':

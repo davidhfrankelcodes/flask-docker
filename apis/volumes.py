@@ -28,3 +28,7 @@ def volume_list_data():
         'labels': volume.attrs['Labels'],
         'options': volume.attrs['Options']
     } for volume in volumes])
+
+def volume_data(volume_id):
+    volume = client.volumes.get(volume_id)
+    return jsonify(volume.attrs)

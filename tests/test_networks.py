@@ -1,23 +1,32 @@
 import random
 
 def test_networks(client, docker_client):
-    response = get_network_app_response(client, docker_client)
-    assert response.status_code == 200
+    network_id = get_network_id(docker_client)
 
-    response = get_networks_api_response(client)
-    assert response.status_code == 200
+    ''' TESTS '''
+    get_network_app(client, network_id)
+    get_networks_app(client)
+    get_network_api(client, network_id)
+    get_networks_api(client)
 
-    response = get_networks_app_response(client)
-    assert response.status_code == 200
 
-def get_networks_api_response(client):
-    return client.get('/api/networks/')
+def get_networks_app(client):
+    networks_app = client.get('/networks/')
+    assert networks_app.status_code == 200
 
-def get_networks_app_response(client):
-    return client.get('/networks/')
+def get_networks_api(client):
+    networks_api = client.get('/api/networks/')
+    assert networks_api.status_code == 200
 
-def get_network_app_response(client, docker_client):
+def get_network_api(client, network_id):
+    networks_app =  client.get(f'/api/networks/{network_id}/')
+    assert networks_app.status_code == 200
+
+def get_network_app(client, network_id):
+    network_app =  client.get(f'/networks/{network_id}/')
+    assert network_app.status_code == 200
+
+def get_network_id(docker_client):
     networks = docker_client.networks.list()
     network_id = random.choice(networks).id
-    return client.get(f'/networks/{network_id}/')
-    
+    return network_id

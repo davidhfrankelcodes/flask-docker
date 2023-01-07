@@ -32,3 +32,7 @@ def network_list_data():
         'enable_ipv6': network.attrs['EnableIPv6'],
         'options': network.attrs['Options']
     } for network in networks])
+
+def network_data(network_id):
+    network = client.networks.get(network_id)
+    return jsonify(network.attrs)

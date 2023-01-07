@@ -30,3 +30,7 @@ def image_list_data():
         'size': image.attrs['Size'],
         'virtual_size': image.attrs['VirtualSize']
     } for image in images])
+
+def image_data(image_id):
+    image = client.images.get(image_id)
+    return jsonify(image.attrs)
