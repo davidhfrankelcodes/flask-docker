@@ -1,7 +1,4 @@
-import sys 
-sys.path.append(".")
-import pytest 
-from app import app
+import random
 
 def test_images_app_route(client):
     response = client.get('/images/')
@@ -11,9 +8,8 @@ def test_images_api_route(client):
     response = client.get('/api/images/')
     assert response.status_code == 200
 
-@pytest.fixture
-def client():
-    app.config['TESTING'] = True
-    client = app.test_client()
-
-    yield client
+def test_images_app_route(client, docker_client):
+    images = docker_client.images.list()
+    image_id = random.choice(images).id
+    response = client.get(f'/images/{image_id}/')
+    assert response.status_code == 200
