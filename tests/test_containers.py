@@ -17,7 +17,6 @@ def test_containers_api_route(client):
     response = client.get('/api/containers/')
     assert response.status_code == 200
 
-
 def test_container_app_route(client, docker_client):
     containers = docker_client.containers.list()
     container_id = random.choice(containers).id
