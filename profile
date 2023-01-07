@@ -4,8 +4,6 @@ export FLASK_VENV=${VENV}/e4_flask_docker
 
 # Turn the virtualenvironment on 
 alias flask-activate='source ${FLASK_VENV}/bin/activate'
-# Run the server locally
-alias flask-run='flask run --app=${FLASK_DOCKER}/app.py --host=0.0.0.0'
 # Run tests
 alias flask-pytest='cd ${FLASK_DOCKER} && pytest tests && cd -'
 # Build and run the image with docker-compose
