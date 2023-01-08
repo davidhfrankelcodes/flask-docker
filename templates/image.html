@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Image Details</h1>
 <p>ID: {{ image.id }}</p>
-<p>Repo Tags: {{ image.attrs['RepoTags'] }}</p>
+<p>Repo Tags: {{ image.attrs['RepoTags'][0] }}</p>
 <p>Created: {{ image.attrs['Created'] }}</p>
 <p>Size: {{ image.attrs['Size'] }}</p>
 {% endblock %}

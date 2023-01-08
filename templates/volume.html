@@ -4,6 +4,6 @@
 <h1>Volume Details</h1>
 <p>ID: {{ volume.id }}</p>
 <p>Name: {{ volume.name }}</p>
-<p>Driver: {{ volume.driver }}</p>
-<p>Mountpoint: {{ volume.mountpoint }}</p>
+<p>Driver: {{ volume.attrs['Driver'] }}</p>
+<p>Mountpoint: {{ volume.attrs['Mountpoint'] }}</p>
 {% endblock %}

@@ -4,6 +4,6 @@
 <h1>Network Details</h1>
 <p>ID: {{ network.id }}</p>
 <p>Name: {{ network.name }}</p>
-<p>Driver: {{ network.driver }}</p>
-<p>Scope: {{ network.scope }}</p>
+<p>Driver: {{ network.attrs['Driver'] }}</p>
+<p>Scope: {{ network.attrs['Scope'] }}</p>
 {% endblock %}

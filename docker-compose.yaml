@@ -1,7 +1,7 @@
 ---
 version: "3"
 services:
-  flask-docker:
+  app:
     build: .
     container_name: flask-docker
     volumes:
