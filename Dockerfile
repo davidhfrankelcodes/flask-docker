@@ -7,6 +7,7 @@ RUN pip install -r /requirements.txt
 # Add the Flask app code
 
 COPY apis /apis
+COPY routes /routes
 COPY static /static
 COPY templates /templates
 COPY app.py /app.py 

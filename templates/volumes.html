@@ -4,7 +4,7 @@
 <h1>Volumes!</h1>
 <ul>
     {% for volume in volumes %}
-    <li><a href="{{ url_for('volume_app', volume_id=volume.id) }}">{{ volume.name }}</a></li>
+    <li><a href="{{ url_for('volumes.volume_app', volume_id=volume.id) }}">{{ volume.name }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}

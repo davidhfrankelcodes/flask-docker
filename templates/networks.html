@@ -4,7 +4,7 @@
 <h1>Networks!</h1>
 <ul>
     {% for network in networks %}
-    <li><a href="{{ url_for('network_app', network_id=network.id) }}">{{ network.name }}</a></li>
+    <li><a href="{{ url_for('networks.network_app', network_id=network.id) }}">{{ network.name }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}
