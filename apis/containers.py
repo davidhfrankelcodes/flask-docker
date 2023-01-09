@@ -12,13 +12,13 @@ def container_list():
         containers=containers)
 
 def container_details(container_id):
+    format = request.args.get('format', 'app')
     container = client.containers.get(container_id)
-    return render_template('container.html', container=container)
-
-def container_data(container_id):
-    container = client.containers.get(container_id)
-    return jsonify(container.attrs)
-
+    if format == 'app':
+        response =  render_template('container.html', container=container)
+    elif format == 'api':
+        response = jsonify(container.attrs)
+    return response
 
 def container_list_data():
     if request.method == 'POST':

@@ -1,6 +1,8 @@
 from flask import Blueprint
-from apis.images import (image_details, 
-    image_list, image_data, image_list_data)
+from apis.images import (
+    image_details, 
+    image_list, 
+    image_list_data)
 
 bp = Blueprint('images', __name__)
 
@@ -16,6 +18,3 @@ def image_app(image_id):
 def images_api():
     return image_list_data()
 
-@bp.route('/api/images/<image_id>/', methods=['GET'])
-def image_api(image_id):
-    return image_data(image_id)

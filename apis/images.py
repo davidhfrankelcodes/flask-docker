@@ -1,4 +1,4 @@
-from flask import render_template, jsonify 
+from flask import render_template, jsonify, request
 from docker import DockerClient
 
 client = DockerClient()
@@ -18,8 +18,13 @@ def image_list():
         images=images)
 
 def image_details(image_id):
+    format = request.args.get('format', 'app')
     image = client.images.get(image_id)
-    return render_template('image.html', image=image)
+    if format == 'app':
+        response =  render_template('image.html', image=image)
+    elif format == 'api':
+        response = jsonify(image.attrs)
+    return response
 
 def image_list_data():
     images = client.images.list()
@@ -31,6 +36,3 @@ def image_list_data():
         'virtual_size': image.attrs['VirtualSize']
     } for image in images])
 
-def image_data(image_id):
-    image = client.images.get(image_id)
-    return jsonify(image.attrs)

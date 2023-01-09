@@ -1,4 +1,4 @@
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
 from docker import DockerClient
 
 client = DockerClient()
@@ -14,8 +14,13 @@ def network_list():
         networks=networks)
 
 def network_details(network_id):
+    format = request.args.get('format', 'app')
     network = client.networks.get(network_id)
-    return render_template('network.html', network=network)
+    if format == 'app':
+        response =  render_template('network.html', network=network)
+    elif format == 'api':
+        response = jsonify(network.attrs)
+    return response
 
 def network_list_data():
     networks = client.networks.list()
@@ -32,7 +37,3 @@ def network_list_data():
         'enable_ipv6': network.attrs['EnableIPv6'],
         'options': network.attrs['Options']
     } for network in networks])
-
-def network_data(network_id):
-    network = client.networks.get(network_id)
-    return jsonify(network.attrs)

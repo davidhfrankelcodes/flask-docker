@@ -1,6 +1,8 @@
 from flask import Blueprint
-from apis.volumes import (volume_details, 
-    volume_list, volume_data, volume_list_data)
+from apis.volumes import (
+    volume_details, 
+    volume_list, 
+    volume_list_data)
 
 bp = Blueprint('volumes', __name__)
 
@@ -16,6 +18,3 @@ def volume_app(volume_id):
 def volumes_api():
     return volume_list_data()
 
-@bp.route('/api/volumes/<volume_id>/', methods=['GET'])
-def volume_api(volume_id):
-    return volume_data(volume_id)

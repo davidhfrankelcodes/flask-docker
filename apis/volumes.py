@@ -1,4 +1,4 @@
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
 from docker import DockerClient
 
 client = DockerClient()
@@ -14,8 +14,13 @@ def volume_list():
         volumes=volumes)
 
 def volume_details(volume_id):
+    format = request.args.get('format', 'app')
     volume = client.volumes.get(volume_id)
-    return render_template('volume.html', volume=volume)
+    if format == 'app':
+        response =  render_template('volume.html', volume=volume)
+    elif format == 'api':
+        response = jsonify(volume.attrs)
+    return response
 
 def volume_list_data():
     volumes = client.volumes.list()
@@ -28,7 +33,3 @@ def volume_list_data():
         'labels': volume.attrs['Labels'],
         'options': volume.attrs['Options']
     } for volume in volumes])
-
-def volume_data(volume_id):
-    volume = client.volumes.get(volume_id)
-    return jsonify(volume.attrs)

@@ -19,7 +19,7 @@ def get_containers_api(client):
     assert containers_api.status_code == 200
 
 def get_container_api(client, container_id):
-    containers_app =  client.get(f'/api/containers/{container_id}/')
+    containers_app =  client.get(f'/containers/{container_id}/?format=api')
     assert containers_app.status_code == 200
 
 def get_container_app(client, container_id):

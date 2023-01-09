@@ -15,11 +15,11 @@ def get_volumes_app(client):
     assert volumes_app.status_code == 200
 
 def get_volumes_api(client):
-    volumes_api = client.get('/api/volumes/')
+    volumes_api = client.get('/volumes/?format=api')
     assert volumes_api.status_code == 200
 
 def get_volume_api(client, volume_id):
-    volumes_app =  client.get(f'/api/volumes/{volume_id}/')
+    volumes_app =  client.get(f'/volumes/{volume_id}/?format=api')
     assert volumes_app.status_code == 200
 
 def get_volume_app(client, volume_id):
