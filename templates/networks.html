@@ -2,9 +2,13 @@
 {% block title %}Networks{% endblock %}
 {% block content %}
 <h1>Networks!</h1>
-<ul>
+<table class="table table-striped table-bordered">
+  <tbody>
     {% for network in networks %}
-    <li><a href="{{ url_for('networks.network_app', network_id=network.id) }}">{{ network.name }}</a></li>
+    <tr>
+      <td><a href="{{ url_for('networks.network_app', network_id=network.id) }}">{{ network.name }}</a></td>
+    </tr>
     {% endfor %}
-</ul>
+  </tbody>
+</table>
 {% endblock %}

@@ -1,9 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Volume Details{% endblock %}
 {% block content %}
-<h1>Volume Details</h1>
-<p>ID: {{ volume.id }}</p>
-<p>Name: {{ volume.name }}</p>
-<p>Driver: {{ volume.attrs['Driver'] }}</p>
-<p>Mountpoint: {{ volume.attrs['Mountpoint'] }}</p>
+<h1>Volume Details!</h1>
+<table class="table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <td>ID</td>
+            <td>{{ volume.id }}</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ volume.name }}</td>
+        </tr>
+        <tr>
+            <td>Driver</td>
+            <td>{{ volume.attrs['Driver'] }}</td>
+        </tr>
+        <tr>
+            <td>Mountpoint</td>
+            <td>{{ volume.attrs['Mountpoint'] }}</td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}

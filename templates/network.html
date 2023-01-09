@@ -1,9 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Network Details{% endblock %}
 {% block content %}
-<h1>Network Details</h1>
-<p>ID: {{ network.id }}</p>
-<p>Name: {{ network.name }}</p>
-<p>Driver: {{ network.attrs['Driver'] }}</p>
-<p>Scope: {{ network.attrs['Scope'] }}</p>
+<h1>Network Details!</h1>
+<table class="table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <td>ID</td>
+            <td>{{ network.id }}</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ network.name }}</td>
+        </tr>
+        <tr>
+            <td>Driver</td>
+            <td>{{ network.attrs['Driver'] }}</td>
+        </tr>
+        <tr>
+            <td>Scope</td>
+            <td>{{ network.attrs['Scope'] }}</td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}

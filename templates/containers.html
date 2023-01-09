@@ -2,10 +2,13 @@
 {% block title %}Containers{% endblock %}
 {% block content %}
 <h1>Containers!</h1>
-<ul>
-  {% for container in containers %}
-  <li><a href="{{ url_for('containers.container_app', container_id=container.id) }}">{{ container.name }}</a>
-  </li>
-  {% endfor %}
-</ul>
+<table class="table table-striped table-bordered">
+  <tbody>
+    {% for container in containers %}
+    <tr>
+      <td><a href="{{ url_for('containers.container_app', container_id=container.id) }}">{{ container.name }}</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

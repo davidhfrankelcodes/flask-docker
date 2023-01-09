@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Image Details{% endblock %}
 {% block content %}
-<h1>Image Details</h1>
-<p>ID: {{ image.id }}</p>
-<p>Repo Tags: {{ image.attrs['RepoTags'][0] }}</p>
-<p>Created: {{ image.attrs['Created'] }}</p>
-<p>Size: {{ image.attrs['Size'] }}</p>
+<h1>Image Details!</h1>
+<table class="table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <td>ID</td>
+            <td>{{ image.id }}</td>
+        </tr>
+        <tr>
+            <td>Repo Tags</td>
+            <td>{{ image.attrs['RepoTags'][0]|default('(null)') }}</td>
+        </tr>
+        <tr>
+            <td>Created</td>
+            <td>{{ image.attrs['Created'] }}</td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}
