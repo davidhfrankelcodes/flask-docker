@@ -15,7 +15,7 @@ def get_networks_app(client):
     assert networks_app.status_code == 200
 
 def get_networks_api(client):
-    networks_api = client.get('/api/networks/')
+    networks_api = client.get('/networks/?format=api')
     assert networks_api.status_code == 200
 
 def get_network_api(client, network_id):

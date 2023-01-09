@@ -1,8 +1,8 @@
 from flask import Blueprint
 from apis.containers import (
     container_details, 
-    container_list, 
-    container_list_data)
+    container_list
+)
 
 bp = Blueprint('containers', __name__)
 
@@ -13,8 +13,4 @@ def containers_app():
 @bp.route('/containers/<container_id>/', methods=['GET'])
 def container_app(container_id):
     return container_details(container_id)
-
-@bp.route('/api/containers/', methods=['GET'])
-def containers_api():
-    return container_list_data()
 

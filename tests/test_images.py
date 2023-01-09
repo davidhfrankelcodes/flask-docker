@@ -15,7 +15,7 @@ def get_images_app(client):
     assert images_app.status_code == 200
 
 def get_images_api(client):
-    images_api = client.get('/api/images/')
+    images_api = client.get('/images/?format=api')
     assert images_api.status_code == 200
 
 def get_image_api(client, image_id):

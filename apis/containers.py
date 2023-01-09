@@ -1,47 +1,20 @@
-from flask import render_template, jsonify, request 
+from flask import render_template, jsonify, request
 from docker.errors import ImageNotFound
 from docker import DockerClient
+from . import util
 
 client = DockerClient()
 
 def container_list():
+    format = util.get_format_param()
     containers = client.containers.list()
     containers = sorted(containers, key=lambda c: c.name.lower())
-    return render_template(
+    if format == 'app':
+        response= render_template(
         'containers.html', title='containers', 
         containers=containers)
-
-def container_details(container_id):
-    format = request.args.get('format', 'app')
-    container = client.containers.get(container_id)
-    if format == 'app':
-        response =  render_template('container.html', container=container)
     elif format == 'api':
-        response = jsonify(container.attrs)
-    return response
-
-def container_list_data():
-    if request.method == 'POST':
-        image = request.args.get('image')
-        if image is None:
-            return "Error: 'image' parameter is required", 400
-
-        # Check if the image exists locally
-        try:
-            client.images.get(image)
-        except ImageNotFound:
-            # If the image was not found locally, try to pull it from Docker Hub
-            try:
-                client.images.pull(image)
-            except:
-                return "Error: Could not find the specified image", 404
-
-        # Create a container from the image
-        container = client.containers.create(image)
-        return f"Successfully created container with ID {container.id}"
-    elif request.method == 'GET':
-        containers = client.containers.list()
-        return jsonify([{
+        response = jsonify([{
             'id': container.id,
             'name': container.name,
             'image': container.attrs['Config']['Image'],
@@ -51,3 +24,13 @@ def container_list_data():
             'ports': container.attrs['NetworkSettings']['Ports'],
             'labels': container.attrs['Config']['Labels']
         } for container in containers])
+    return response
+
+def container_details(container_id):
+    format = util.get_format_param()
+    container = client.containers.get(container_id)
+    if format == 'app':
+        response =  render_template('container.html', container=container)
+    elif format == 'api':
+        response = jsonify(container.attrs)
+    return response

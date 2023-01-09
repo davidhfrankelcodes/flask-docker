@@ -2,7 +2,7 @@ from flask import Blueprint
 from apis.networks import (
     network_details, 
     network_list, 
-    network_list_data)
+)
 
 bp = Blueprint('networks', __name__)
 
@@ -14,6 +14,3 @@ def networks_app():
 def network_app(network_id):
     return network_details(network_id)
 
-@bp.route('/api/networks/', methods=['GET'])
-def networks_api():
-    return network_list_data()

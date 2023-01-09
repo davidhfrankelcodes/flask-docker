@@ -1,30 +1,22 @@
-from flask import render_template, jsonify, request
+from flask import render_template, jsonify
 from docker import DockerClient
+from . import util
+
 
 client = DockerClient()
 
 def network_list():
+    format = util.get_format_param()
     networks = client.networks.list()
     def get_network_sort_key(network):
         return network.name.lower()
-
     networks = sorted(networks, key=get_network_sort_key)
-    return render_template(
-        'networks.html', title='networks', 
-        networks=networks)
-
-def network_details(network_id):
-    format = request.args.get('format', 'app')
-    network = client.networks.get(network_id)
     if format == 'app':
-        response =  render_template('network.html', network=network)
+        response =  render_template(
+            'networks.html', title='networks', 
+            networks=networks)
     elif format == 'api':
-        response = jsonify(network.attrs)
-    return response
-
-def network_list_data():
-    networks = client.networks.list()
-    return jsonify([{
+        response = jsonify([{
         'id': network.id,
         'name': network.name,
         'driver': network.attrs['Driver'],
@@ -37,3 +29,13 @@ def network_list_data():
         'enable_ipv6': network.attrs['EnableIPv6'],
         'options': network.attrs['Options']
     } for network in networks])
+    return response
+
+def network_details(network_id):
+    format = util.get_format_param()
+    network = client.networks.get(network_id)
+    if format == 'app':
+        response =  render_template('network.html', network=network)
+    elif format == 'api':
+        response = jsonify(network.attrs)
+    return response

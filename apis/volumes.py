@@ -1,30 +1,21 @@
-from flask import render_template, jsonify, request
+from flask import render_template, jsonify
 from docker import DockerClient
+from . import util
 
 client = DockerClient()
 
 def volume_list():
+    format = util.get_format_param()
     volumes = client.volumes.list()
     def get_volume_sort_key(volume):
         return volume.name.lower()
-
     volumes = sorted(volumes, key=get_volume_sort_key)
-    return render_template(
-        'volumes.html', title='volumes', 
-        volumes=volumes)
-
-def volume_details(volume_id):
-    format = request.args.get('format', 'app')
-    volume = client.volumes.get(volume_id)
     if format == 'app':
-        response =  render_template('volume.html', volume=volume)
+        response =  render_template(
+            'volumes.html', title='volumes', 
+            volumes=volumes)
     elif format == 'api':
-        response = jsonify(volume.attrs)
-    return response
-
-def volume_list_data():
-    volumes = client.volumes.list()
-    return jsonify([{
+        response = jsonify([{
         'id': volume.id,
         'name': volume.name,
         'driver': volume.attrs['Driver'],
@@ -33,3 +24,13 @@ def volume_list_data():
         'labels': volume.attrs['Labels'],
         'options': volume.attrs['Options']
     } for volume in volumes])
+    return response
+
+def volume_details(volume_id):
+    format = util.get_format_param()
+    volume = client.volumes.get(volume_id)
+    if format == 'app':
+        response =  render_template('volume.html', volume=volume)
+    elif format == 'api':
+        response = jsonify(volume.attrs)
+    return response
