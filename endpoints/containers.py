@@ -1,7 +1,7 @@
 from flask import render_template, jsonify, request
 from docker.errors import ImageNotFound
 from docker import DockerClient
-from . import util
+from util import util
 
 client = DockerClient()
 

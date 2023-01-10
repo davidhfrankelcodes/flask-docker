@@ -1,6 +1,6 @@
 from flask import render_template, jsonify
 from docker import DockerClient
-from . import util
+from util import util
 
 
 client = DockerClient()

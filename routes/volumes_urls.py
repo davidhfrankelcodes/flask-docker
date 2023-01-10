@@ -1,5 +1,5 @@
 from flask import Blueprint
-from apis.volumes import (
+from endpoints.volumes import (
     volume_details, 
     volume_list
 )    

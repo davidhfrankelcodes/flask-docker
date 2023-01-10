@@ -1,5 +1,5 @@
 from flask import Blueprint
-from apis.images import (
+from endpoints.images import (
     image_details, 
     image_list
 )

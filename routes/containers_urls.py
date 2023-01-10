@@ -1,5 +1,5 @@
 from flask import Blueprint
-from apis.containers import (
+from endpoints.containers import (
     container_details, 
     container_list
 )

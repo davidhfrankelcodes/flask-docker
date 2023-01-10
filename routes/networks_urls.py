@@ -1,5 +1,5 @@
 from flask import Blueprint
-from apis.networks import (
+from endpoints.networks import (
     network_details, 
     network_list, 
 )
