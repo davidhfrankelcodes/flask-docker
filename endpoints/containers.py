@@ -1,12 +1,12 @@
 from flask import render_template, jsonify, request
 from docker.errors import ImageNotFound
 from docker import DockerClient
-from util import util
+from util import flask_util
 
 client = DockerClient()
 
 def container_list():
-    format = util.get_format_param()
+    format = flask_util.get_format_param()
     containers = client.containers.list()
     containers = sorted(containers, key=lambda c: c.name.lower())
     if format == 'app':
@@ -27,7 +27,7 @@ def container_list():
     return response
 
 def container_details(container_id):
-    format = util.get_format_param()
+    format = flask_util.get_format_param()
     container = client.containers.get(container_id)
     if format == 'app':
         response =  render_template('container.html', container=container)

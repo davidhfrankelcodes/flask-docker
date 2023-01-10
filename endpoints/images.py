@@ -1,11 +1,11 @@
 from flask import render_template, jsonify
 from docker import DockerClient
-from util import util
+from util import flask_util
 
 client = DockerClient()
 
 def image_list():
-    format = util.get_format_param()
+    format = flask_util.get_format_param()
     images = client.images.list()
     def get_image_sort_key(image):
         if image.attrs['RepoTags']:
@@ -28,7 +28,7 @@ def image_list():
     return response
 
 def image_details(image_id):
-    format = util.get_format_param()
+    format = flask_util.get_format_param()
     image = client.images.get(image_id)
     if format == 'app':
         response =  render_template('image.html', image=image)

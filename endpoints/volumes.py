@@ -1,11 +1,11 @@
 from flask import render_template, jsonify
 from docker import DockerClient
-from util import util
+from util import flask_util
 
 client = DockerClient()
 
 def volume_list():
-    format = util.get_format_param()
+    format = flask_util.get_format_param()
     volumes = client.volumes.list()
     def get_volume_sort_key(volume):
         return volume.name.lower()
@@ -27,7 +27,7 @@ def volume_list():
     return response
 
 def volume_details(volume_id):
-    format = util.get_format_param()
+    format = flask_util.get_format_param()
     volume = client.volumes.get(volume_id)
     if format == 'app':
         response =  render_template('volume.html', volume=volume)

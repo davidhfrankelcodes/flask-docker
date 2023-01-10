@@ -1,12 +1,12 @@
 from flask import render_template, jsonify
 from docker import DockerClient
-from util import util
+from util import flask_util
 
 
 client = DockerClient()
 
 def network_list():
-    format = util.get_format_param()
+    format = flask_util.get_format_param()
     networks = client.networks.list()
     def get_network_sort_key(network):
         return network.name.lower()
@@ -32,7 +32,7 @@ def network_list():
     return response
 
 def network_details(network_id):
-    format = util.get_format_param()
+    format = flask_util.get_format_param()
     network = client.networks.get(network_id)
     if format == 'app':
         response =  render_template('network.html', network=network)
