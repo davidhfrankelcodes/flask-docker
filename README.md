@@ -23,7 +23,7 @@ docker-compose up -d --build
 
 querystring params
 1. `format`: either **format=app** or format=api.
-  1. format=api returns a json
-  1. format=app returns the app
-  1. no param returns the app
+    1. format=api returns a json
+    1. format=app returns the app
+    1. no param returns the app
   
