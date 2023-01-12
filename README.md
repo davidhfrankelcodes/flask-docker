@@ -6,6 +6,7 @@ This is a simple flask project that allows users to view running containers, ima
 ```
 docker build -t flask-docker .
 ```
+
 * Copy the .env.template to .env and run with docker-compose 
 
 ```
